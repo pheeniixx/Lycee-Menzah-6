@@ -102,7 +102,9 @@ header{
   padding:25px 18px;overflow-y:auto
 }
 .cart-panel.active{transform:translateX(0)}
-.cart-title{font-size:18px;font-weight:800;margin-bottom:25px}
+.cart-header{display:flex;align-items:center;gap:12px;margin-bottom:25px}
+.cart-back{display:none;border:0;background:transparent;font-size:30px;line-height:1;padding:0;cursor:pointer}
+.cart-title{font-size:18px;font-weight:800;margin-bottom:0}
 .cart-item{display:flex;align-items:flex-start;gap:14px;padding:0 0 20px;margin-bottom:20px;border-bottom:1px solid #ddd}
 .cart-product-image{width:68px;height:68px;object-fit:cover;background:#f4f4f4}
 .cart-product-info{flex:1}
@@ -225,6 +227,7 @@ header{
   .product-name{font-size:15px}
   .new-price{font-size:17px}
   .cart-panel{width:100%;padding:20px 14px}
+  .cart-back{display:block}
   .product-page{padding:10px 14px 40px}
   .main-product-image{height:360px}
   .gallery{display:block}
@@ -271,7 +274,10 @@ button,input,select{max-width:100%}
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 
 <aside class="cart-panel" id="cartPanel">
-  <h2 class="cart-title">Mon panier</h2>
+  <div class="cart-header">
+    <button class="cart-back" onclick="backFromCart()" aria-label="Retour">←</button>
+    <h2 class="cart-title">Mon panier</h2>
+  </div>
   <div id="cartContent"><div class="empty-cart">Il n'y a pas de produit</div></div>
 
   <div class="cart-summary" id="cartSummary" style="display:none">
@@ -880,6 +886,15 @@ function toggleCart(){
 function closeCart(){
   $("cartPanel").classList.remove("active");
   $("cartOverlay").classList.remove("active");
+}
+
+function backFromCart(){
+  if(window.matchMedia("(max-width: 600px)").matches && history.state?.cartOpen){
+    history.back();
+    return;
+  }
+
+  closeCart();
 }
 
 function openCheckout(){
