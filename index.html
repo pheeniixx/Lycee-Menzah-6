@@ -103,7 +103,7 @@ header{
 }
 .cart-panel.active{transform:translateX(0)}
 .cart-header{display:flex;align-items:center;gap:12px;margin-bottom:25px}
-.cart-back{display:none;border:0;background:transparent;font-size:14px;font-weight:800;line-height:1;padding:0;cursor:pointer;text-transform:uppercase}
+.cart-back{display:block;border:0;background:transparent;font-size:14px;font-weight:800;line-height:1;padding:0;cursor:pointer;text-transform:uppercase}
 .cart-title{font-size:18px;font-weight:800;margin-bottom:0}
 .cart-item{display:flex;align-items:flex-start;gap:14px;padding:0 0 20px;margin-bottom:20px;border-bottom:1px solid #ddd}
 .cart-product-image{width:68px;height:68px;object-fit:cover;background:#f4f4f4}
@@ -277,7 +277,7 @@ button,input,select{max-width:100%}
 <aside class="cart-panel" id="cartPanel">
   <div class="cart-header">
     <button class="cart-back" onclick="backFromCart()" aria-label="Retourner à l’accueil">RETOURNER À L’ACCUEIL</button>
-    <h2 class="cart-title">Mon panier</h2>
+    
   </div>
   <div id="cartContent"><div class="empty-cart">Il n'y a pas de produit</div></div>
 
