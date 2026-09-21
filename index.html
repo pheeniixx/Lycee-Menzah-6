@@ -555,6 +555,13 @@ function showPage(id, addHistory=true){
 
 window.addEventListener("popstate",function(e){
 
+  // Mobile only: if Back is pressed while the cart history
+  // entry is active, close the cart and stay on the same page.
+  if(window.matchMedia("(max-width: 600px)").matches && e.state?.cartOpen){
+    closeCart();
+    return;
+  }
+
   const page=e.state?.page || "shopPage";
 
   if($(page)){
@@ -853,8 +860,21 @@ function removeCartItem(id){
 }
 
 function toggleCart(){
-  $("cartPanel").classList.toggle("active");
-  $("cartOverlay").classList.toggle("active");
+  const opening=!$("cartPanel").classList.contains("active");
+
+  $("cartPanel").classList.toggle("active",opening);
+  $("cartOverlay").classList.toggle("active",opening);
+
+  // Mobile only: add a history entry while the cart is open.
+  // The phone Back button will therefore close the cart first.
+  if(opening && window.matchMedia("(max-width: 600px)").matches){
+    if(!history.state?.cartOpen){
+      history.pushState({
+        page: history.state?.page || "shopPage",
+        cartOpen: true
+      },"",location.href);
+    }
+  }
 }
 
 function closeCart(){
